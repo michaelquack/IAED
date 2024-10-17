@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bomb Defusal Screen</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="timer" id="timer">00:30</div>
+    <div class="code" id="code">Code: 123456</div>
+    <div class="entered-code-box">
+      <div class="entered-code" id="enteredCodeDisplay">Entered Code: </div>
+    </div>
+    <div class="number-pad">
+      <button onclick="enterNumber(1)">1</button>
+      <button onclick="enterNumber(2)">2</button>
+      <button onclick="enterNumber(3)">3</button>
+      <button onclick="enterNumber(4)">4</button>
+      <button onclick="enterNumber(5)">5</button>
+      <button onclick="enterNumber(6)">6</button>
+      <button onclick="enterNumber(7)">7</button>
+      <button onclick="enterNumber(8)">8</button>
+      <button onclick="enterNumber(9)">9</button>
+      <button onclick="enterNumber(0)">0</button>
+    </div>
+    <div class="controls">
+      <button id="defuse" onclick="defuseBomb()">DEFUSE</button>
+      <button id="arm" onclick="armBomb()" style="background-color: red;">ARM</button>
+    </div>
+    <button id="settings" onclick="openSettings()">SETTINGS</button>
+  </div>
+  <div class="settings-menu" id="settingsMenu">
+    <h3>Set Timer</h3>
+    <select id="timerInput">
+      <option value="150">2:30</option>
+      <option value="180">3:00</option>
+      <option value="210">3:30</option>
+      <option value="240">4:00</option>
+      <option value="270">4:30</option>
+      <option value="300">5:00</option>
+      <option value="330">5:30</option>
+      <option value="360">6:00</option>
+      <option value="390">6:30</option>
+      <option value="420">7:00</option>
+      <option value="450">7:30</option>
+      <option value="480">8:00</option>
+      <option value="510">8:30</option>
+      <option value="540">9:00</option>
+      <option value="570">9:30</option>
+      <option value="600">10:00</option>
+    </select>
+    <button onclick="setTimer()">Save</button>
+    <button onclick="closeSettings()">Close</button>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
