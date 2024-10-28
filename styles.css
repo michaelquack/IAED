@@ -1,86 +1,83 @@
 body {
-    background-color: #2c2c2c;
-    color: white;
+    background-color: #333;
+    color: #fff;
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     margin: 0;
-  }
-  
-  .container {
-    text-align: center;
-  }
-  
-  .timer {
-    font-size: 48px;
-    margin-bottom: 10px;
-  }
-  
-  .code {
+    justify-content: space-between;
+}
+
+.lcd-display {
+    font-family: 'Courier New', Courier, monospace;
     font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .entered-code-box {
-    background-color: #000; /* Black background for the text box */
+    background: #111;
+    color: #0f0;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .entered-code {
-    font-size: 24px;
-  }
-  
-  .number-pad {
+    margin-top: 20px;
+}
+
+#keypad {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  button {
-    padding: 15px;
-    font-size: 24px;
-    background-color: #444;
-    color: white;
-    border: 2px solid black;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #555;
-  }
-  
-  .controls {
-    margin-bottom: 20px;
-  }
-  
-  #defuse {
-    background-color: green;
-  }
-  
-  #arm {
-    background-color: red;
-  }
-  
-  .settings-menu {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #333;
     padding: 20px;
-    border-radius: 10px;
+}
+
+.key {
+    font-weight: bold;
+    background-color: #555;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    border: none;
+}
+
+.delete {
+    grid-column: span 3;
+    background-color: #d9534f;
+}
+
+#controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.control-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.arm {
+    background-color: #d9534f;
+}
+
+.disarm {
+    background-color: #5cb85c;
+}
+
+.settings {
+    font-size: 18px;
+    padding: 10px 20px;
+    background-color: #777;
+    border: none;
+    color: #fff;
+}
+
+.menu.hidden {
+    display: none;
+}
+
+.menu {
+    background: #444;
+    padding: 20px;
     color: white;
-    z-index: 10;
-  }
-  
-  .settings-menu select {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
+    border-radius: 5px;
+}
