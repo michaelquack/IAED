@@ -3,54 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timer Disarm PWA</title>
+    <title>PWA Timer</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
 </head>
 <body>
-    <div id="display" class="lcd-display">
-        Timer: 10:00 | Status: Disarmed | Code: 000000<br>
-        Entered Code: <span id="enteredCodeDisplay">-</span>
-    </div>
-
-    <div id="keypadContainer">
-        <div id="keypad">
-            <button class="key">0</button>
-            <button class="key">1</button>
-            <button class="key">2</button>
-            <button class="key">3</button>
-            <button class="key">4</button>
-            <button class="key">5</button>
-            <button class="key">6</button>
-            <button class="key">7</button>
-            <button class="key">8</button>
-            <button class="key">9</button>
-            <button class="key delete">Delete</button>
+    <div class="container">
+        <div class="display">
+            <div id="timerDisplay">00:00</div>
+            <div id="inputDisplay">Input: </div>
+            <div id="statusDisplay">Status: Disarm</div>
+            <div id="codeDisplay">Disarm Code: ------</div>
         </div>
+        <div class="keypad">
+            <div class="button" onclick="enterNumber(1)">1</div>
+            <div class="button" onclick="enterNumber(2)">2</div>
+            <div class="button" onclick="enterNumber(3)">3</div>
+            <div class="button" onclick="enterNumber(4)">4</div>
+            <div class="button" onclick="enterNumber(5)">5</div>
+            <div class="button" onclick="enterNumber(6)">6</div>
+            <div class="button" onclick="enterNumber(7)">7</div>
+            <div class="button" onclick="enterNumber(8)">8</div>
+            <div class="button" onclick="enterNumber(9)">9</div>
+            <div class="button" onclick="enterNumber(0)">0</div>
+            <div class="button delete" onclick="clearInput()">Delete</div>
+        </div>
+        <button id="armButton" onclick="toggleArm()" class="arm-button">Arm</button>
+        <button id="settingsButton" onclick="openSettings()">Settings</button>
     </div>
-
-    <div id="controls">
-        <button id="disarmButton" class="control-button disarm">Disarm</button>
-        <button id="armButton" class="control-button arm">Arm</button>
-    </div>
-
-    <button id="settingsButton" class="settings">Settings</button>
-
-    <div id="settingsMenu" class="menu hidden">
-        <label for="timer">Timer Intervals:</label>
-        <select id="timer">
-            <option value="90">1.5 minutes</option>
-            <option value="180">3 minutes</option>
-            <option value="270">4.5 minutes</option>
+    <div id="settingsMenu" class="settings-menu" style="display: none;">
+        <h2>Settings</h2>
+        <label for="timerInterval">Timer Interval:</label>
+        <select id="timerInterval">
+            <option value="90">1.5 Minutes</option>
+            <option value="180">3 Minutes</option>
+            <option value="270">4.5 Minutes</option>
         </select>
-        <label for="sound">Finish Sound:</label>
-        <select id="sound">
-            <option value="beep">Beep</option>
-            <option value="alarm">Alarm</option>
-            <option value="chime">Chime</option>
-        </select>
+        <button onclick="closeSettings()">Close</button>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
