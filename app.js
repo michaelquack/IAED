@@ -68,6 +68,12 @@ function formatTime(seconds) {
   const secs = seconds % 60;
   return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(() => {
+    console.log("Service Worker Registered");
+  });
+}
+
 
 function openSettings() {
   alert("Settings menu will open here.");
