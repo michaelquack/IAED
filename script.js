@@ -59,7 +59,12 @@ function stopTimer() {
 
 function playSound() {
   const soundOption = document.getElementById("sound-option").value;
-  alert(`Playing sound: ${soundOption}`);
+  const sound = document.getElementById("explosion-sound");
+  if (soundOption === "explosion") {
+    sound.play();
+  } else {
+    alert(`Playing sound: ${soundOption}`);
+  }
 }
 
 function openSettings() {
