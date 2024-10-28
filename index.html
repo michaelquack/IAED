@@ -3,41 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bomb Defusal Game</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Timer PWA</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="display">
-    <div class="lcd">
-      <p id="time-remaining">00:00</p>
-      <p id="status">DISARM</p>
-      <p id="disarm-code">123456</p>
-      <p id="typed-input"></p>
+  <div id="app">
+    <div id="display">
+      <p id="time-display">00:00</p>
+      <p id="status">Status: Disarm</p>
+      <p id="code-display">Code: </p>
+      <p id="typed-display">Typed: </p>
+    </div>
+    
+    <div id="keypad-frame">
+      <div id="keypad">
+        <!-- Keypad buttons 0-9 and delete -->
+        <button class="key" onclick="typeKey('1')">1</button>
+        <button class="key" onclick="typeKey('2')">2</button>
+        <button class="key" onclick="typeKey('3')">3</button>
+        <button class="key" onclick="typeKey('4')">4</button>
+        <button class="key" onclick="typeKey('5')">5</button>
+        <button class="key" onclick="typeKey('6')">6</button>
+        <button class="key" onclick="typeKey('7')">7</button>
+        <button class="key" onclick="typeKey('8')">8</button>
+        <button class="key" onclick="typeKey('9')">9</button>
+        <button class="key" onclick="typeKey('0')">0</button>
+        <button class="key" onclick="deleteKey()">Del</button>
+      </div>
+    </div>
+    
+    <div id="controls">
+      <button id="arm-btn" onclick="toggleArm()">Arm</button>
+      <button id="settings-btn" onclick="openSettings()">Settings</button>
     </div>
   </div>
 
-  <div class="keypad-frame">
-    <div class="keypad">
-      <!-- Number buttons 0-9 -->
-      <button onclick="handleKeypadClick(1)">1</button>
-      <button onclick="handleKeypadClick(2)">2</button>
-      <button onclick="handleKeypadClick(3)">3</button>
-      <button onclick="handleKeypadClick(4)">4</button>
-      <button onclick="handleKeypadClick(5)">5</button>
-      <button onclick="handleKeypadClick(6)">6</button>
-      <button onclick="handleKeypadClick(7)">7</button>
-      <button onclick="handleKeypadClick(8)">8</button>
-      <button onclick="handleKeypadClick(9)">9</button>
-      <button onclick="handleKeypadClick(0)">0</button>
-      <button onclick="handleKeypadClick('delete')">Delete</button>
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal">
+    <div class="modal-content">
+      <h2>Settings</h2>
+      <label>Timer Interval:</label>
+      <select id="timer-interval">
+        <option value="90">1.5 minutes</option>
+        <option value="180">3 minutes</option>
+        <option value="270">4.5 minutes</option>
+      </select>
+      <label>Sound:</label>
+      <select id="sound-option">
+        <option value="beep">Beep</option>
+        <option value="buzz">Buzz</option>
+      </select>
+      <button onclick="closeSettings()">Close</button>
     </div>
   </div>
 
-  <div class="controls">
-    <button id="arm-button" class="arm" onclick="toggleArm()">ARM</button>
-    <button id="settings-button" onclick="openSettings()">SETTINGS</button>
-  </div>
-
-  <script src="app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
