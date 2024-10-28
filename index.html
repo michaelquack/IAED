@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I.A.E.D</title>
+  <title>Timer PWA</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="app">
-    <div id="display">
-      <p id="time-display">00:00</p>
-      <p id="status">Status: Disarm</p>
-      <p id="code-display">Code: </p>
-      <p id="typed-display">Typed: </p>
+    <div id="display-container">
+      <div id="display">
+        <p id="time-display">00:00</p>
+        <p id="status">Status: Disarm</p>
+        <p id="code-display">Code: </p>
+        <p id="typed-display">Typed: </p>
+      </div>
     </div>
     
     <div id="keypad-frame">
@@ -52,16 +54,14 @@
       <select id="sound-option">
         <option value="beep">Beep</option>
         <option value="buzz">Buzz</option>
+        <option value="explosion">Explosion</option>
       </select>
       <button onclick="closeSettings()">Close</button>
     </div>
   </div>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js');
-  }
-</script>
 
+  <audio id="explosion-sound" src="explosion-42132.mp3"></audio>
+  
   <script src="script.js"></script>
 </body>
 </html>
