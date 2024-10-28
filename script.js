@@ -2,25 +2,31 @@ let disarmCode = generateCode();
 let timerInterval;
 let isArmed = false;
 let timeRemaining = 600; // e.g., 10 minutes
+let inputCode = ''; // Store user input
 
-// Update display with time, status, and code
+// Update display
 function updateDisplay() {
     const display = document.getElementById("display");
+    const enteredCodeDisplay = document.getElementById("enteredCodeDisplay");
     display.textContent = `Timer: ${formatTime(timeRemaining)} | Status: ${isArmed ? 'Armed' : 'Disarmed'} | Code: ${disarmCode}`;
+    enteredCodeDisplay.textContent = inputCode || '-';
 }
 
+// Generate a new code and clear previous input
 function generateCode() {
+    inputCode = ''; // Clear input when new code is generated
+    updateDisplay(); // Show the cleared input in display
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
+// Format time in mm:ss
 function formatTime(seconds) {
     const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
     const secs = String(seconds % 60).padStart(2, '0');
     return `${mins}:${secs}`;
 }
 
-// Keypad input handling
-let inputCode = '';
+// Handle keypad input
 document.querySelectorAll('.key').forEach(button => {
     button.addEventListener('click', () => {
         if (button.classList.contains('delete')) {
@@ -28,11 +34,11 @@ document.querySelectorAll('.key').forEach(button => {
         } else if (inputCode.length < 6) {
             inputCode += button.textContent;
         }
-        console.log("Current Code:", inputCode);
+        updateDisplay();
     });
 });
 
-// Start timer
+// Arm the timer
 document.getElementById("armButton").addEventListener("click", () => {
     if (inputCode === disarmCode) {
         isArmed = true;
@@ -42,14 +48,13 @@ document.getElementById("armButton").addEventListener("click", () => {
             updateDisplay();
             if (timeRemaining <= 0) {
                 clearInterval(timerInterval);
-                // Play selected sound when timer ends
                 playSound();
             }
         }, 1000);
     }
 });
 
-// Stop timer
+// Disarm the timer
 document.getElementById("disarmButton").addEventListener("click", () => {
     if (inputCode === disarmCode) {
         isArmed = false;
@@ -58,19 +63,14 @@ document.getElementById("disarmButton").addEventListener("click", () => {
     }
 });
 
-// Settings button
-document.getElementById("settingsButton").addEventListener("click", () => {
-    document.getElementById("settingsMenu").classList.toggle("hidden");
-});
-
-// Sound playback based on selection
-function playSound() {
-    const sound = document.getElementById("sound").value;
-    new Audio(`sounds/${sound}.mp3`).play();
-}
-
-// Timer updates every 13 seconds
+// Refresh disarm code every 13 seconds
 setInterval(() => {
     disarmCode = generateCode();
     updateDisplay();
 }, 13000);
+
+// Play sound on timer end (based on settings)
+function playSound() {
+    const sound = document.getElementById("sound").value;
+    new Audio(`sounds/${sound}.mp3`).play();
+}
