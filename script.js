@@ -1,76 +1,90 @@
+let timer;
+let timeRemaining = 90; // Default to 1.5 minutes in seconds
+let armStatus = false;
+let enteredCode = "";
 let disarmCode = generateCode();
-let timerInterval;
-let isArmed = false;
-let timeRemaining = 600; // e.g., 10 minutes
-let inputCode = ''; // Store user input
+const timerDisplay = document.getElementById('timerDisplay');
+const inputDisplay = document.getElementById('inputDisplay');
+const statusDisplay = document.getElementById('statusDisplay');
+const codeDisplay = document.getElementById('codeDisplay');
 
-// Update display
-function updateDisplay() {
-    const display = document.getElementById("display");
-    const enteredCodeDisplay = document.getElementById("enteredCodeDisplay");
-    display.textContent = `Timer: ${formatTime(timeRemaining)} | Status: ${isArmed ? 'Armed' : 'Disarmed'} | Code: ${disarmCode}`;
-    enteredCodeDisplay.textContent = inputCode || '-';
-}
-
-// Generate a new code and clear previous input
 function generateCode() {
-    inputCode = ''; // Clear input when new code is generated
-    updateDisplay(); // Show the cleared input in display
     return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-// Format time in mm:ss
-function formatTime(seconds) {
-    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-    const secs = String(seconds % 60).padStart(2, '0');
-    return `${mins}:${secs}`;
+function updateDisplay() {
+    timerDisplay.textContent = formatTime(timeRemaining);
+    inputDisplay.textContent = `Input: ${enteredCode}`;
+    statusDisplay.textContent = `Status: ${armStatus ? 'Arm' : 'Disarm'}`;
+    codeDisplay.textContent = `Disarm Code: ${disarmCode}`;
 }
 
-// Handle keypad input
-document.querySelectorAll('.key').forEach(button => {
-    button.addEventListener('click', () => {
-        if (button.classList.contains('delete')) {
-            inputCode = inputCode.slice(0, -1);
-        } else if (inputCode.length < 6) {
-            inputCode += button.textContent;
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+}
+
+function enterNumber(num) {
+    if (enteredCode.length < 6) {
+        enteredCode += num.toString();
+        updateDisplay();
+    }
+}
+
+function clearInput() {
+    enteredCode = "";
+    updateDisplay();
+}
+
+function toggleArm() {
+    if (enteredCode === disarmCode) {
+        armStatus = !armStatus;
+        if (armStatus) {
+            startTimer();
+        } else {
+            stopTimer();
         }
         updateDisplay();
-    });
-});
+    }
+}
 
-// Arm the timer
-document.getElementById("armButton").addEventListener("click", () => {
-    if (inputCode === disarmCode) {
-        isArmed = true;
-        clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
+function startTimer() {
+    timer = setInterval(() => {
+        if (timeRemaining > 0) {
             timeRemaining--;
             updateDisplay();
-            if (timeRemaining <= 0) {
-                clearInterval(timerInterval);
-                playSound();
-            }
-        }, 1000);
-    }
-});
+        } else {
+            alert("Timer finished!");
+            stopTimer();
+        }
+    }, 1000);
+}
 
-// Disarm the timer
-document.getElementById("disarmButton").addEventListener("click", () => {
-    if (inputCode === disarmCode) {
-        isArmed = false;
-        clearInterval(timerInterval);
-        updateDisplay();
-    }
-});
+function stopTimer() {
+    clearInterval(timer);
+    timeRemaining = parseInt(document.getElementById('timerInterval').value);
+    updateDisplay();
+}
 
-// Refresh disarm code every 13 seconds
+function openSettings() {
+    document.getElementById('settingsMenu').style.display = 'block';
+}
+
+function closeSettings() {
+    document.getElementById('settingsMenu').style.display = 'none';
+}
+
+// Change disarm code every 13 seconds
 setInterval(() => {
     disarmCode = generateCode();
+    enteredCode = "";
     updateDisplay();
 }, 13000);
 
-// Play sound on timer end (based on settings)
-function playSound() {
-    const sound = document.getElementById("sound").value;
-    new Audio(`sounds/${sound}.mp3`).play();
+// Service Worker registration for offline capabilities
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').then(() => {
+        console.log('Service Worker registered');
+    });
 }
